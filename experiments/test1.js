@@ -6,7 +6,8 @@
     background (255,255,255);
 
     const originalY = 300;
-    const divider = 50;
+    const divider = 25;
+    noiseSeed(0);
     beginShape ();
     for (let x = 0; x < 600; x++) {
         //const y = originalY + Math.random() * 100;
