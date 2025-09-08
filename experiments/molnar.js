@@ -1,5 +1,5 @@
  function setup() {
-    createCanvas(1000, 1000);
+    createCanvas(600, 600);
  }
 
  const size = 100;
@@ -31,7 +31,7 @@
 }
 
  function draw() {
-    background(255, 255, 255);
+    background(255, 140, 0);
 
     //drawLayers(100, 100, size, layers);
     for (let y = 0; y < 10; y++) {
