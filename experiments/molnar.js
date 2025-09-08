@@ -1,3 +1,4 @@
+ 
  function setup() {
     createCanvas(600, 600);
  }
@@ -20,6 +21,13 @@
         }
         const s = (size / layers) * i;
         const half = s / 2;
+
+        //colors for the lines
+        stroke(random(255), random(255), random(255));
+        //thicker lines
+        strokeWeight(2);
+        
+
         beginShape();
         vertex(getRandomValue(x - half, variance),getRandomValue(y - half, variance));
         vertex(getRandomValue(x + half, variance),getRandomValue(y - half, variance));
