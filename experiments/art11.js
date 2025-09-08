@@ -4,7 +4,7 @@
  }
 
  const size = 100;
- const layers = 10;
+ const layers = 100;
 
  function getRandomValue(pos, variance) {
     return pos + map(Math.random(), 0, 1, -variance, variance);
@@ -25,7 +25,7 @@
         //colors for the lines
         stroke(random(255), random(255), random(255));
         //thicker lines
-        strokeWeight(2);
+        strokeWeight(10);
         
 
         beginShape();
@@ -42,9 +42,9 @@
     background(255, 140, 0);
 
     //drawLayers(100, 100, size, layers);
-    for (let y = 0; y < 10; y++) {
+    for (let y = 0; y < 20; y++) {
         for (let x = 0; x < 10; x++) {
-            drawLayers(size / 2 + x * size, size / 2 + y * size, size, layers);
+            drawLayers(size / 4 + x * size, size / 4 + y * size, size, layers);
         }
     }
 
