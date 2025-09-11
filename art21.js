@@ -1,4 +1,5 @@
 let angle;
+let prevAngle = 0; // track previous mouse angle
 let leaves = [];
 let stars = [];
 
@@ -18,7 +19,7 @@ class Leaf {
 
   display() {
     noStroke();
-    fill(120, 255, 255, 200); // green leaf
+    fill(120, 255, 255, 200);
     ellipse(this.x, this.y, this.size);
   }
 
@@ -30,7 +31,7 @@ class Leaf {
 class Star {
   constructor() {
     this.x = random(width);
-    this.y = random(-50, 0); // start above the canvas
+    this.y = random(-50, 0);
     this.size = random(2, 4);
     this.speed = random(2, 5);
   }
@@ -41,9 +42,9 @@ class Star {
 
   display() {
     noStroke();
-    fill(60, 0, 255); // bright white star
+    fill(60, 0, 255);
     ellipse(this.x, this.y, this.size);
-    // optional trail:
+    // optional trail
     stroke(60, 0, 255, 150);
     line(this.x, this.y, this.x, this.y - 10);
   }
@@ -62,8 +63,8 @@ function setup() {
 function draw() {
   background(0);
 
-  // ⭐ Falling stars in the background
-  if (random(1) < 0.05) { 
+  // Falling stars in the background
+  if (random(1) < 0.05) {
     stars.push(new Star());
   }
   for (let i = stars.length - 1; i >= 0; i--) {
@@ -74,22 +75,27 @@ function draw() {
     }
   }
 
-  // 🌳 Draw the tree
-  push();
+  // Calculate current tree angle
   angle = (mouseX / width) * 90;
   angle = min(angle, 90);
 
-  translate(width / 2, height);
+  // Check if the tree has moved
+  let treeMoved = angle !== prevAngle;
+  prevAngle = angle;
 
+  // Draw the tree
   stroke(0, 255, 255);
-  line(0, 0, 0, -120);
+  let trunkLength = 120;
+  let startX = width / 2;
+  let startY = height;
 
-  translate(0, -120);
+  // Draw trunk
+  line(startX, startY, startX, startY - trunkLength);
 
-  branch(120, 0);
-  pop();
+  // Start recursive branches from top of trunk
+  branch(startX, startY - trunkLength, trunkLength, -90, 0, treeMoved);
 
-  // 🍂 Falling leaves
+  // Update and draw falling leaves
   for (let i = leaves.length - 1; i >= 0; i--) {
     leaves[i].update();
     leaves[i].display();
@@ -99,46 +105,33 @@ function draw() {
   }
 }
 
-function branch(h, level) {
+// Recursive branch function using absolute coordinates
+function branch(x, y, h, a, level, treeMoved) {
   stroke(level * 40 % 360, 255, 255);
 
   h *= 0.66;
 
   if (h > 2) {
     // Right branch
-    push();
-    rotate(angle);
-    line(0, 0, 0, -h);
-    translate(0, -h);
-    branch(h, level + 1);
-    pop();
+    let newX = x + cos(a) * h;
+    let newY = y + sin(a) * h;
+    line(x, y, newX, newY);
+    branch(newX, newY, h, a + angle, level + 1, treeMoved);
 
     // Left branch
-    push();
-    rotate(-angle);
-    line(0, 0, 0, -h);
-    translate(0, -h);
-    branch(h, level + 1);
-    pop();
+    newX = x + cos(a) * h;
+    newY = y + sin(a) * h;
+    line(x, y, newX, newY);
+    branch(newX, newY, h, a - angle, level + 1, treeMoved);
   } else {
     // Static leaf at tip
     fill(120, 255, 255);
     noStroke();
-    ellipse(0, 0, 6, 6);
+    ellipse(x, y, 6, 6);
 
-    // Occasionally spawn a falling leaf
-    if (random(1) < 0.01) {
-      let pos = getCanvasCoords(0, 0);
-      leaves.push(new Leaf(pos.x, pos.y));
+    // Occasionally spawn falling leaf only if the tree moved
+    if (random(1) < 0.01 && treeMoved) {
+      leaves.push(new Leaf(x, y));
     }
   }
-}
-
-// Convert current drawing coords into canvas coords
-function getCanvasCoords(x, y) {
-  let m = drawingContext.getTransform();
-  return {
-    x: m.a * x + m.c * y + m.e,
-    y: m.b * x + m.d * y + m.f
-  };
 }
