@@ -7,7 +7,7 @@ function setup() {
 }
 
 function draw() {
-  background('#FFFFFF');
+  background('black');
 
   // Calculate the angle based on the mouse position, maximum 90 degrees
   angle = (mouseX / width) * 90;
@@ -34,7 +34,6 @@ function draw() {
 function branch(h, level) {
   // Set the hue based on the recursion level
   stroke(level * 25, 255, 255);
-  strokeWeight(map(h, 2, 120, 1, 8));
 
   // Each branch will be 2/3 the size of the previous one
   h *= 0.66;
