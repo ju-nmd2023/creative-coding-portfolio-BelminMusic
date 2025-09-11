@@ -34,6 +34,7 @@ function draw() {
 function branch(h, level) {
   // Set the hue based on the recursion level
   stroke(level * 25, 255, 255);
+  strokeWeight(map(h, 2, 120, 1, 8));
 
   // Each branch will be 2/3 the size of the previous one
   h *= 0.66;
@@ -43,6 +44,13 @@ function branch(h, level) {
     // Draw the right branch
     // Save the current coordinate system
     push();
+
+    //added leaves
+    if (h < 10) {
+  fill(120, 255, 255, 150); // greenish leaves
+  noStroke();
+  ellipse(0, 0, 10, 10);
+}
 
     // Rotate by angle
     rotate(angle);
