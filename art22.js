@@ -1,3 +1,11 @@
+
+/*
+ * Code adapted from: "Recursive Tree" example
+ * p5.js Examples — Repetition: Recursive Tree
+ * https://p5js.org/examples/repetition-recursive-tree/
+ * Accessed: September 12, 2025
+ */
+
 let angle;
 
 function setup() {
@@ -7,7 +15,7 @@ function setup() {
 }
 
 function draw() {
-  background('black');
+  background('white');
 
   // Calculate the angle based on the mouse position, maximum 90 degrees
   angle = (mouseX / width) * 90;

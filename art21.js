@@ -1,3 +1,11 @@
+
+/*
+ * Code adapted from: "Recursive Tree" example
+ * p5.js Examples — Repetition: Recursive Tree
+ * https://p5js.org/examples/repetition-recursive-tree/
+ * Accessed: September 12, 2025
+ */
+
 let angle;
 let prevAngle = 0; // track previous mouse angle
 let leaves = [];
