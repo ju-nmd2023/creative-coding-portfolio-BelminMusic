@@ -1,24 +1,40 @@
 
+et stars = [];
+
 function setup() {
   createCanvas(600, 600);
   noFill();
+
+  for (let i = 0; i < 200; i++) {
+    stars.push({
+      x: random(width),
+      y: random(height),
+      brightness: random(150, 255)
+    });
+  }
 }
 
 function draw() {
-  //Gradient background
+  // Gradient background
   for (let y = 0; y < height; y++) {
     let c = lerpColor(color(30, 30, 60), color(10, 10, 30), y / height); 
     stroke(c);
     line(0, y, width, y);
   }
 
+  // static stars
+  for (let s of stars) {
+    stroke(255, s.brightness);
+    point(s.x, s.y);
+  }
+
+  // Waves
   const baseY = height / 2;
   const divider = 100;
   const layers = 5;
 
-  //Waves
   for (let i = 0; i < layers; i++) {
-    let waveColor = color(180 + i * 15, 220, 255, 180); 
+    let waveColor = color(180 + i * 15, 220, 255, 180);
     stroke(waveColor);
     strokeWeight(2);
 
@@ -29,5 +45,5 @@ function draw() {
     }
     endShape();
   }
-}   
+}
 
