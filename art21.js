@@ -1,5 +1,5 @@
 
-et stars = [];
+let stars = [];
 
 function setup() {
   createCanvas(600, 600);
@@ -19,7 +19,7 @@ function draw() {
   for (let y = 0; y < height; y++) {
     let c = lerpColor(color(30, 30, 60), color(10, 10, 30), y / height); 
     stroke(c);
-    line(0, y, width, y);
+    line(0, y, width, y);  
   }
 
   // static stars
@@ -31,10 +31,10 @@ function draw() {
   // Waves
   const baseY = height / 2;
   const divider = 100;
-  const layers = 5;
+  const layers = 6;
 
   for (let i = 0; i < layers; i++) {
-    let waveColor = color(180 + i * 15, 220, 255, 180);
+    let waveColor = color(255, 100 + i*20, 200, 180); 
     stroke(waveColor);
     strokeWeight(2);
 
@@ -46,4 +46,4 @@ function draw() {
     endShape();
   }
 }
-
+  
