@@ -1,22 +1,30 @@
- function setup() {
-    createCanvas(600, 600);
- } 
+function setup() {
+  createCanvas(600, 600);
+} 
 
- function draw () {
-    background (255,255,255);
+const size = 10;
+const divider = 20;
+const numRows = 60;
+const numCols = 60;
 
-    const originalY = 300;
-    const divider = 25;
-    noiseSeed(0);
-    beginShape ();
-    for (let x = 0; x < 600; x++) {
-        //const y = originalY + Math.random() * 100;
-        const y = originalY + noise(x / divider) * 100;
-        vertex(x, y);
+function draw () {
+  background(235, 70, 80);
+
+  noStroke();
+
+  for (let y = 0; y < numRows; y++) {
+    for (let x = 0; x < numCols; x++) {
+      const value = noise(x / divider, y / divider); // noise between 0–1
+
+      // Map noise value to color (from blue to pink)
+      const c = lerpColor(color(50, 100, 200), color(200, 50, 150), value);
+      fill(c);
+
+      // Size also depends on noise
+      ellipse(size / 2 + x * size, size / 2 + y * size, value * size);
     }
-    endShape ();
+  }
+}
 
-    noLoop();
- }
 
- 
+

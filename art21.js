@@ -53,6 +53,7 @@ function draw() {
     let waveColor = color(255, 100 + i * 20, 200, 180); // bright pink waves
     stroke(waveColor);
     strokeWeight(2);
+    noFill(); //
 
     beginShape();
     for (let x = 0; x < width; x++) {
