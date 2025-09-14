@@ -8,8 +8,9 @@ const numRows = 60;
 const numCols = 60;
 
 function draw () {
-  background(10, 30, 40);
+  background("black");
   noStroke();
+
 
   for (let y = 0; y < numRows; y++) {
     for (let x = 0; x < numCols; x++) {
@@ -17,6 +18,13 @@ function draw () {
 
       // gardient color for the dots
       const c = lerpColor(color(50, 255, 230), color(255, 80, 200), value);
+
+      // glow  effect
+        for (let g = 5; g > 0; g--) { 
+        fill(red(c), green(c), blue(c), 20);
+        ellipse(size / 2 + x * size, size / 2 + y * size, value * size + g * 8);
+      }
+
       fill(c);
 
       // Circle size animated
