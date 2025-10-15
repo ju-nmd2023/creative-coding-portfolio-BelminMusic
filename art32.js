@@ -1,6 +1,5 @@
-
 let inc = 0.1; 
-let scl = 20;       
+let scl = 40;       
 let cols, rows;
 let zoff = 0;        
 let particles = [];
@@ -13,19 +12,20 @@ function setup() {
   rows = floor(height / scl);
   flowfield = new Array(cols * rows);
 
-  // Create particles
-  for (let i = 0; i < 2000; i++) {
+  for (let i = 0; i < 3000; i++) {
     particles[i] = new Particle();
   }
   background(0);
 }
 
 function draw() {
+  background(0, 15); // fading background for ghost trails
+
   let yoff = 0;
   for (let y = 0; y < rows; y++) {
     let xoff = 0;
     for (let x = 0; x < cols; x++) {
-      let angle = noise(xoff, yoff, zoff) * TWO_PI * 4;
+      let angle = noise(xoff, yoff, zoff) * TWO_PI * 8; // more turbulence
       let v = p5.Vector.fromAngle(angle);
       v.setMag(1);
       let index = x + y * cols;
@@ -34,24 +34,22 @@ function draw() {
     }
     yoff += inc;
   }
-  zoff += 0.003;
+  zoff += 0.01; // faster noise evolution
 
-  // Update and show particles
-  for (let i = 0; i < particles.length; i++) {
-    particles[i].follow(flowfield);
-    particles[i].update();
-    particles[i].edges();
-    particles[i].show();
+  for (let p of particles) {
+    p.follow(flowfield);
+    p.update();
+    p.edges();
+    p.show();
   }
 }
 
-// Particle class
 class Particle {
   constructor() {
     this.pos = createVector(random(width), random(height));
     this.vel = createVector(0, 0);
     this.acc = createVector(0, 0);
-    this.maxspeed = 2;
+    this.maxspeed = 3;
     this.hue = random(255);
   }
 
@@ -75,9 +73,9 @@ class Particle {
   }
 
   show() {
-    stroke(this.hue, 255, 255, 25);
-    strokeWeight(1);
-    point(this.pos.x, this.pos.y);
+    stroke(this.hue, 200, 255, 50);
+    strokeWeight(2);
+    ellipse(this.pos.x, this.pos.y, 2, 2); // glowing dots instead of points
   }
 
   edges() {
