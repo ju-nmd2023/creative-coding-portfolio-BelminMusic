@@ -3,50 +3,32 @@
     "file": "experiments/test1.js",
     "name": "Test 1",
     "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
-  }
-]
-
-[
+  },
   {
     "file": "experiments/art11.js",
     "name": "Art 1",
     "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
-  }
-]
-
-[
+  },
   {
     "file": "experiments/art12.js",
-    "name": "art style 1 verison 2",
+    "name": "art style 1 version 2",
     "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
-  }
-]
-
-[
+  },
   {
     "file": "experiments/art21.js",
-    "name": "art style 2 verion 1",
+    "name": "art style 2 version 1",
     "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
-  }
-]
-
-[
+  },
   {
     "file": "experiments/art22.js",
     "name": "art style 2 version 2",
     "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
-  }
-]
-
-[
+  },
   {
     "file": "experiments/art31.js",
     "name": "art 3.1",
     "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
-  }
-]
-
-[
+  },
   {
     "file": "experiments/art32.js",
     "name": "art 3.2",
