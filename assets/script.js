@@ -1,9 +1,7 @@
 const nextButton = document.getElementById("next");
 const prevButton = document.getElementById("prev");
-const githubLink = document.getElementById("github");
 const nameText = document.getElementById("name");
 const descriptionText = document.getElementById("description");
-const backgroundText = document.getElementById("background");
 const p5container = document.getElementById("p5container");
 
 let currentExperiment = 0;
@@ -20,60 +18,48 @@ fetch("data.json")
 
 function goToExperiment(index) {
   const experiment = experiments[index];
-  if (!experiment) {
-    return;
-  }
-  p5container.innerHTML = "";
+  if (!experiment) return;
 
+  p5container.innerHTML = "";
   const iframe = document.createElement("iframe");
   iframe.style.width = "100%";
   iframe.style.height = "100%";
   iframe.style.border = "none";
+  iframe.setAttribute("allow", "autoplay");
 
-  const bodyElement = document.createElement("div");
+  // CHECK: Is it an HTML file or a JS file?
+  if (experiment.file.endsWith(".html")) {
+    // If it's HTML, just load the file directly
+    iframe.src = experiment.file;
+  } else {
+    // If it's a JS file, build the environment like your old code did
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.js"></script>
+          <link rel="stylesheet" href="assets/iframe.css">
+          <style>body { margin: 0; display: flex; justify-content: center; align-items: center; background: black; }</style>
+        </head>
+        <body>
+          <script src="${experiment.file}"></script>
+        </body>
+      </html>
+    `;
+    iframe.srcdoc = htmlContent;
+  }
 
-  const p5script = document.createElement("script");
-  p5script.type = "text/javascript";
-  p5script.src = "assets/p5.min.js";
-  p5script.defer = true;
-  bodyElement.appendChild(p5script);
-
-  const toneScript = document.createElement("script");
-  toneScript.type = "text/javascript";
-  toneScript.src = "https://unpkg.com/tone";
-  toneScript.defer = true;
-  bodyElement.appendChild(toneScript);
-
-  const codeScript = document.createElement("script");
-  codeScript.type = "text/javascript";
-  codeScript.src = experiment.file;
-  codeScript.defer = true;
-  bodyElement.appendChild(codeScript);
-
-  const styleLink = document.createElement("link");
-  styleLink.rel = "stylesheet";
-  styleLink.href = "assets/iframe.css";
-  bodyElement.appendChild(styleLink);
-
-  iframe.srcdoc = bodyElement.innerHTML;
   p5container.appendChild(iframe);
-
   nameText.innerText = experiment.name;
   descriptionText.innerText = experiment.description;
 }
 
 nextButton.addEventListener("click", () => {
-  currentExperiment++;
-  if (currentExperiment >= experiments.length) {
-    currentExperiment = 0;
-  }
+  currentExperiment = (currentExperiment + 1) % experiments.length;
   goToExperiment(currentExperiment);
 });
 
 prevButton.addEventListener("click", () => {
-  currentExperiment--;
-  if (currentExperiment < 0) {
-    currentExperiment = experiments.length - 1;
-  }
+  currentExperiment = (currentExperiment - 1 + experiments.length) % experiments.length;
   goToExperiment(currentExperiment);
 });
