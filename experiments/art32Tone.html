@@ -15,7 +15,6 @@ let zoff = 0;
 let particles = [];
 let flowfield;
 
-// Tone.js
 let synth;
 let started = false;
 
@@ -30,21 +29,19 @@ function setup() {
     particles[i] = new Particle();
   }
   background(0);
-
-  // Show message to click first
-  textAlign(CENTER, CENTER);
-  fill(255);
-  textSize(20);
 }
 
 function draw() {
   if (!started) {
     background(0);
-    text("Click anywhere to start sound 🎵", width/2, height/2);
+    textAlign(CENTER, CENTER);
+    fill(255);
+    textSize(20);
+    text("Click once to start audio 🎵", width/2, height/2);
     return; 
   }
 
-  background(0, 15); // fading trails
+  background(0, 15); 
 
   let yoff = 0;
   for (let y = 0; y < rows; y++) {
@@ -69,17 +66,16 @@ function draw() {
   }
 }
 
-// Start Tone.js + create synth on first click
-function mousePressed() {
+// FIXED: Using async/await to ensure Tone.js starts on the first try
+async function mousePressed() {
   if (!started) {
-    Tone.start().then(() => {
-      synth = new Tone.Synth().toDestination(); // create synth AFTER audio starts
-      started = true;
-    });
+    await Tone.start(); // Wait for audio context to start
+    synth = new Tone.Synth().toDestination();
+    started = true;
+    console.log("Audio started successfully");
   }
 }
 
-// Particle class
 class Particle {
   constructor() {
     this.pos = createVector(random(width), random(height));
@@ -94,7 +90,7 @@ class Particle {
     let y = floor(this.pos.y / scl);
     let index = x + y * cols;
     let force = vectors[index];
-    this.applyForce(force);
+    if (force) this.applyForce(force);
   }
 
   applyForce(force) {
@@ -107,51 +103,32 @@ class Particle {
     this.pos.add(this.vel);
     this.acc.mult(0);
 
-    // Occasionally trigger a note if audio started
     if (started && random(1) < 0.001) {
       let notes = ["C4", "D4", "E4", "G4", "A4"];
-      let note = random(notes);
-      synth.triggerAttackRelease(note, "8n");
+      synth.triggerAttackRelease(random(notes), "8n");
     }
   }
 
   show() {
     stroke(this.hue, 200, 255, 50);
     strokeWeight(2);
-    ellipse(this.pos.x, this.pos.y, 2, 2);
+    point(this.pos.x, this.pos.y);
   }
 
   edges() {
-    if (this.pos.x > width) {
-      this.pos.x = 0;
-      this.playEdgeSound();
-    }
-    if (this.pos.x < 0) {
-      this.pos.x = width;
-      this.playEdgeSound();
-    }
-    if (this.pos.y > height) {
-      this.pos.y = 0;
-      this.playEdgeSound();
-    }
-    if (this.pos.y < 0) {
-      this.pos.y = height;
-      this.playEdgeSound();
-    }
+    if (this.pos.x > width) { this.pos.x = 0; this.playEdgeSound(); }
+    if (this.pos.x < 0) { this.pos.x = width; this.playEdgeSound(); }
+    if (this.pos.y > height) { this.pos.y = 0; this.playEdgeSound(); }
+    if (this.pos.y < 0) { this.pos.y = height; this.playEdgeSound(); }
   }
 
-  // Play a note when particle wraps around edge
   playEdgeSound() {
-    if (started) {
+    if (started && synth) {
       let notes = ["C3", "E3", "G3", "B3", "D4"];
-      let note = random(notes);
-      synth.triggerAttackRelease(note, "16n");
+      synth.triggerAttackRelease(random(notes), "16n", undefined, 0.1);
     }
   }
 }
 </script>
 </body>
 </html>
-
-
-
