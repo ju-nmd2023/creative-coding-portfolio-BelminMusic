@@ -7,37 +7,37 @@
   {
     "file": "experiments/art11.js",
     "name": "Art 1",
-    "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+    "description": "This sketch uses a grid system where every shape is built from randomized vertices. By skipping some layers and randomizing the stroke colors, I turned a standard grid into a messy, energetic texture."
   },
   {
     "file": "experiments/art12.js",
     "name": "art style 1 version 2",
-    "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+    "description": "A mix of structured geometry and organic randomness. I used a dark background and a star-generation loop to set the scene, then layered thin, vibrating teal lines on top to create a sense of depth and movement"
   },
   {
     "file": "experiments/art21.js",
     "name": "art style 2 version 1",
-    "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+    "description": "This piece explores layers and movement. I used a custom gradient for the sky and a loop to generate a starfield, while the waves at the bottom use shifting noise values to create a smooth, liquid motion that never repeats exactly the same way twice."
   },
   {
     "file": "experiments/art22.js",
     "name": "art style 2 version 2",
-    "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+    "description": "This sketch explores interactive data visualization. By combining a 2D noise field with a glow effect (layered ellipses), I created a dynamic grid where the user controls the intensity of the visual weight by moving their mouse."
   },
   {
     "file": "experiments/art31.js",
     "name": "art 3.1",
-    "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+    "description": "This piece visualizes an invisible field of energy. I used 2,000 individual particles that follow a 'flow field' driven by Perlin noise. As they move, they leave behind delicate, colorful trails that slowly reveal the hidden mathematical patterns of the 'wind' blowing across the canvas."
   },
   {
     "file": "experiments/art32.js",
     "name": "art 3.2",
-    "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+    "description": "A high energy version of a flow field. By using 3,000 particles and a fading background, I created a 'ghost trail' effect. The particles move with much more turbulence than before, swirling like colorful smoke or deep sea currents that constantly shift and disappear."
   },
 {
   "file": "experiments/art32Tone.html",
   "name": "art 3.2 with sound",
-  "description": "Explains the what and the why. What is the main idea? What is the purpose? Describes the coding process and implementation choices and gives a high level system overview."
+  "description": "I combined generative art with sound synthesis. The particles follow a complex noise field, and their movement triggers random notes from a pentatonic scale"
 }
 ]
 
